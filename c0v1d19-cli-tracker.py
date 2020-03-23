@@ -153,7 +153,7 @@ def banner():
 
 def manage_args():
     _parser = arg.ArgumentParser(
-        epilog='''Email: jangeles@gangsecurity.com\nCode: \nBetter Safe, than Sorry!!\nIt's Covit19 Virus not a Chinese Virus ''',
+        epilog='''Email: jangeles@gangsecurity.com\nCode: https://github.com/jangelesg/cov1d19-cli \nBetter Safe, than Sorry!!\nIt's Covit19 Virus not a Chinese Virus ''',
         formatter_class=arg.RawDescriptionHelpFormatter, description='''\
          COVID19 Tracker Tool
     --------------------------------

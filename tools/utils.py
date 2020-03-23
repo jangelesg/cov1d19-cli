@@ -20,14 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 """
 
 from requests.exceptions import HTTPError, SSLError
-import http.server, ssl
 import datetime
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
-import logging
-import re
 
 
 def make_requests(url, method, **kwargs):

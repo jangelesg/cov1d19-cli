@@ -1,4 +1,4 @@
-#  Covid19 CLI-Tracker Tool_ 
+#  Covid19 CLI-Tracker Tool
 
 **Version 1.0.0**
 

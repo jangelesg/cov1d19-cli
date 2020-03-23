@@ -131,7 +131,7 @@ class Covid19Records:
                 return t  # Return the table object
 
         # Check response is not empty
-        res = make_requests(url=self.url, proxies={'http': '127.0.0.1:8080', 'https': '127.0.0.1:8080'}, method='get')
+        res = make_requests(url=self.url, method='get')
         if len(res.get('content')) > 2:  # Check the length of the response
             response_covid19_cases = res.get('json')  # Grab the json response
             table = create_table(response=response_covid19_cases)  # Create the table

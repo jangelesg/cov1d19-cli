@@ -24,7 +24,6 @@ from colorama import Fore
 from prettytable import PrettyTable
 from pyfiglet import Figlet
 from datetime import datetime
-from lxml import html
 import argparse as arg
 
 custom_fig = Figlet(font='graffiti')

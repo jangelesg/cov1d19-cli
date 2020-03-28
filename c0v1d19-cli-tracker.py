@@ -167,7 +167,7 @@ class Covid19Records:
         ###################################################
         #         Check response is not empty
         ###################################################
-        res = make_requests(url=self.url, proxies={'http': '127.0.0.1:8080', 'https': '127.0.0.1:8080'}, method='get')
+        res = make_requests(url=self.url, method='get')
         if len(res.get('content')) > 2:  # Check the length of the response
             response_covid19_cases_json = res.get('json')  # Grab the json response
             table = create_table(response_covid19_cases_json)  # Create the table

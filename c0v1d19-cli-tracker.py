@@ -24,6 +24,7 @@ from colorama import Fore
 from prettytable import PrettyTable
 from pyfiglet import Figlet
 from datetime import datetime
+from lxml import html
 import argparse as arg
 
 custom_fig = Figlet(font='graffiti')
@@ -89,6 +90,9 @@ class Covid19Records:
             text_format('Red', f'{country} Deaths')
             self.url = URL + 'countries/' + f'{country}/' + 'deaths'
 
+        if url_request == 'alabama_counties':  # A summary of Alabama information
+            self.url = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/COV19_Public_Dashboard_ReadOnly/FeatureServer/0/query?f=json&where=CONFIRMED%20%3E%200&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=102100&resultOffset=0&resultRecordCount=69'
+
     @staticmethod
     def match_date(date: str):
         try:
@@ -100,6 +104,37 @@ class Covid19Records:
     def caller(self):
         def create_table(response):  # Receives a list with dictionary objects
             t = PrettyTable()  # Create Table Object
+            confirmed = 0
+            died = 0
+
+            if self.url_call == 'alabama_counties':
+                t.field_names = ['CNTYNAME', 'CNTYFIPS', 'ADPHDistrict', 'CONFIRMED', 'DIED']  # Creates a Column
+                for k, v in response.items():  # Iterates key and value over the json
+                    if k == 'features':  # Extract a list that contains the dicts records from counties
+                        assert type(v) is list, 'The type is incorrect, expected a list'
+                        for i in v:  # Iterate over the list
+                            assert type(i) is dict, 'The type is incorrect, expected a dict'
+                            for v in i.values():  # Iterates over the dict values
+                                entries = []
+                                for k, v in v.items():
+                                    if k == 'CNTYNAME':
+                                        entries.append(v)
+                                    if k == 'CNTYFIPS':
+                                        entries.append(v)
+                                    if k == 'ADPHDistrict':
+                                        entries.append(v)
+                                    if k == 'CONFIRMED':
+                                        confirmed += v
+                                        entries.append(v)
+                                    if k == 'DIED':
+                                        died += v
+                                        entries.append(v)
+                                t.add_row(entries)  # add a row per entry
+                text_format('Blue', f'[*]  Alabama Summary CONFIRMED: {confirmed} DIED: {died}\n')
+                text_format('Blue', 'Alabama County Summary')
+
+                return t
+
             if self.url_call == 'countries':
                 t.field_names = ['Columns']  # Creates a Column
                 for k, v in response.items():  # Iterates key and value over the json
@@ -130,11 +165,13 @@ class Covid19Records:
                     t.add_row(entry)  # add a row per entry
                 return t  # Return the table object
 
-        # Check response is not empty
-        res = make_requests(url=self.url, method='get')
+        ###################################################
+        #         Check response is not empty
+        ###################################################
+        res = make_requests(url=self.url, proxies={'http': '127.0.0.1:8080', 'https': '127.0.0.1:8080'}, method='get')
         if len(res.get('content')) > 2:  # Check the length of the response
-            response_covid19_cases = res.get('json')  # Grab the json response
-            table = create_table(response=response_covid19_cases)  # Create the table
+            response_covid19_cases_json = res.get('json')  # Grab the json response
+            table = create_table(response_covid19_cases_json)  # Create the table
         else:
             text_format(color='Red', data='[x] API Error Empty Response,  try again later')
             exit(0)
@@ -153,7 +190,7 @@ def banner():
 
 def manage_args():
     _parser = arg.ArgumentParser(
-        epilog='''Email: jangeles@gangsecurity.com\nCode: https://github.com/jangelesg/cov1d19-cli \nBetter Safe, than Sorry!!\nIt's Covit19 Virus not a Chinese Virus ''',
+        epilog='''Email: jangeles@gangsecurity.com\nCode: https://github.com/jangelesg/cov1d19-cli\nBetter Safe, than Sorry!!\nIt's Covit19 Virus not a Chinese Virus ''',
         formatter_class=arg.RawDescriptionHelpFormatter, description='''\
          COVID19 Tracker Tool
     --------------------------------
@@ -174,8 +211,10 @@ def manage_args():
                          help='A cases per region sorted by recovered cases (e.g. python3 c0v1d19-cli-tracker.py --cr JAPAN)')
     _parser.add_argument('--cd',
                          help='A cases per region sorted by death toll (e.g. python3 c0v1d19-cli-tracker.py --cd JAPAN)')
+    _parser.add_argument('--ac', action="store_true",
+                         help='Alabama region sorted by counties, and Summary')
     args = _parser.parse_args()
-    arguments = args.gs, args.gc, args.gr, args.gd, args.d, args.dt, args.c, args.cs, args.cc, args.cr, args.cd
+    arguments = args.gs, args.gc, args.gr, args.gd, args.d, args.dt, args.c, args.cs, args.cc, args.cr, args.cd, args.ac
 
     return arguments
 
@@ -185,7 +224,7 @@ def built_call(arguments: tuple):
 
     :param arguments:
     """
-    global_summary, global_confirmed, global_recovered, global_death, daily, daily_date, countries, country_summary, countries_confirmed, countries_recovered, countries_deaths = arguments
+    global_summary, global_confirmed, global_recovered, global_death, daily, daily_date, countries, country_summary, countries_confirmed, countries_recovered, countries_deaths, alabama_counties = arguments
 
     if global_confirmed is True:
         Covid19Records(url_request='confirmed').caller()
@@ -207,6 +246,8 @@ def built_call(arguments: tuple):
         Covid19Records('countries-recovered', countries_recovered).caller()
     if countries_deaths:
         Covid19Records('countries-deaths', countries_deaths).caller()
+    if alabama_counties:
+        Covid19Records(url_request='alabama_counties').caller()
     elif global_summary is True:
         Covid19Records(url_request='global-summary').caller()
 

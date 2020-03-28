@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 ## Contributors 
 -  Jonathan Angeles <jangelesg@gangsecurity.com>
 -  Odi mathdroid https://github.com/mathdroid
+## Resources 
+- https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/COV19_Public_Dashboard_ReadOnly/
+- https://covid19.mathdro.id/api/
 ---
 ## Usage 
 - python c0v1d19-cli-tracker.py --cd italy 

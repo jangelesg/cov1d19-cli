@@ -135,15 +135,32 @@ class Covid19Records:
                 return t
 
             if self.url_call == 'countries':
-                t.field_names = ['Columns']  # Creates a Column
+                t.field_names = ['Country Name', 'ISO2', 'ISO3']  # Creates a Column
                 for k, v in response.items():  # Iterates key and value over the json
-                    if k == 'countries':  # If key is equals Country entries
-                        entries = [k + ' ' + v for k, v in v.items()]
-                        for i in entries.__iter__():
-                            line = [f'{i}']  # Get one element and create a list
+                    assert k == 'countries', 'Key is not countries'  # If key is equals Country entries
+                    for a in v:  # list of dictionaries
+                        entries = []
+                        #print(type(a))
+                        for k, v in a.items():
+                            if k == 'name':
+                                entries.append(v)
+                            if k == 'iso2':
+                                entries.append(v)
+                            if k == 'iso3':
+                                entries.append(v)
+                        if len(entries) < 3:  # Check the length of the row vs columns
+                            for x in range(3 - len(entries)): # add padding to the row, avoiding a raise exception
+                                entries.append(None)
+                        t.add_row(entries)  # add a row per entry
+                        print(entries)
+
+
+
+                            #t.add_row(entries)  # add a row per entry
+
                 return t  # Return the table object
 
-            elif self.url_call == 'global-summary' or self.url_call == 'country-summary:
+            elif self.url_call == 'global-summary' or self.url_call == 'country-summary':
                 t.field_names = ['Confirmed', 'Recovered', 'Deaths', 'lastUpdate']
                 e = [v.get('value') for k, v in response.items() if type(v) is dict]  # Extract row items
                 entries = []
@@ -184,7 +201,9 @@ def banner():
     """
     print(custom_fig.renderText('Covid19 Tracker-cli'))
     text_format(color='Blue',
-                data='[*] COVID19 Data Tracker via Johns Hopkins CSSE https://systems.jhu.edu/research/public-health/ncov/ \n')
+                data='[+] COVID19 Data Tracker via Johns Hopkins CSSE \n'
+                     '- https://systems.jhu.edu/research/public-health/ncov/ \n'
+                     '- https://alpublichealth.maps.arcgis.com/apps/opsdashboard/index.html\n')
 
 
 def manage_args():
@@ -194,7 +213,8 @@ def manage_args():
          COVID19 Tracker Tool
     --------------------------------
     Data Tracker via Johns Hopkins CSSE
-    https://systems.jhu.edu/research/public-health/ncov/ ''')
+    https://systems.jhu.edu/research/public-health/ncov/
+    https://alpublichealth.maps.arcgis.com/apps/opsdashboard/index.html''')
 
     _parser.add_argument('--gs', action="store_true", help=' Show global Summary')
     _parser.add_argument('--gc', action="store_true", help=' Global cases per region sorted by confirmed cases')
@@ -256,6 +276,7 @@ def main():
 
     """
     args = manage_args()
+    banner()
     built_call(arguments=args)
 
 

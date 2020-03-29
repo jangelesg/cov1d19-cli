@@ -152,7 +152,6 @@ class Covid19Records:
                             for x in range(3 - len(entries)): # add padding to the row, avoiding a raise exception
                                 entries.append(None)
                         t.add_row(entries)  # add a row per entry
-                        print(entries)
 
 
 

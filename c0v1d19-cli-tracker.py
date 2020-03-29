@@ -143,7 +143,7 @@ class Covid19Records:
                             line = [f'{i}']  # Get one element and create a list
                 return t  # Return the table object
 
-            elif self.url_call == 'global-summary':
+            elif self.url_call == 'global-summary' or self.url_call == 'country-summary:
                 t.field_names = ['Confirmed', 'Recovered', 'Deaths', 'lastUpdate']
                 e = [v.get('value') for k, v in response.items() if type(v) is dict]  # Extract row items
                 entries = []

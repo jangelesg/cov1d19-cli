@@ -32,5 +32,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 - python c0v1d19-cli-tracker.py --gs
 - python c0v1d19-cli-tracker.py -h
 
-![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19.gif)
+![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_1.gif)
 

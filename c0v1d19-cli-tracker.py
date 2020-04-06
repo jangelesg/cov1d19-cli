@@ -26,7 +26,7 @@ from pyfiglet import Figlet
 from datetime import datetime
 import argparse as arg
 
-custom_fig = Figlet(font='graffiti')
+custom_fig = Figlet(font='chunky')
 
 # GLOBAL
 

@@ -38,5 +38,29 @@ user@CS38:~/cov1d19-cli$ python setup.py install --user
 - python c0v1d19-cli-tracker.py --gs
 - python c0v1d19-cli-tracker.py -h
 
+usage: c0v1d19-cli-tracker.py [-h] [--gs] [--gc] [--gr] [--gd] [--d] [--dt DT] [--c] [--cs CS] [--cc CC] [--cr CR] [--cd CD] [--ac]
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --gs        Show global Summary
+  --gc        Global cases per region sorted by confirmed cases
+  --gr        Global cases per region sorted by recovered cases
+  --gd        Global cases per region sorted by death toll
+  --d         Global cases per day
+  --dt DT     Detail of updates in a (e.g. python3 c0v1d19-cli-tracker.py --dt 2-14-2020)
+  --c         All countries and their ISO codes
+  --cs CS     A [country] Summary (e.g. python3 c0v1d19-cli-tracker.py --sc JAPAN)
+  --cc CC     A [country] Cases per region sorted by confirmed cases (e.g. python3 c0v1d19-cli-tracker.py --cc JAPAN)
+  --cr CR     A cases per region sorted by recovered cases (e.g. python3 c0v1d19-cli-tracker.py --cr JAPAN)
+  --cd CD     A cases per region sorted by death toll (e.g. python3 c0v1d19-cli-tracker.py --cd JAPAN)
+  --ac        Alabama region sorted by counties, and Summary
+
+Email: jangeles@gangsecurity.com
+Code: https://github.com/jangelesg/cov1d19-cli
+Better Safe, than Sorry!!
+It's Covit19 Virus not a Chinese Virus 
+
+## Screen Shoot 
+
 ![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_1.gif)
 

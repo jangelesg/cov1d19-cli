@@ -39,7 +39,7 @@ user@CS38:~/cov1d19-cli$ python setup.py install --user
 - python c0v1d19-cli-tracker.py -h
 
 ## Screen Shoot 
-![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_help.gif)
+![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_help.jpg)
 
 ![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_1.gif)
 

@@ -175,7 +175,6 @@ class Covid19Records:
                 t.add_row(entries_row)  # add a row per entry
                 return t  # Return the table object
             else:
-                print(response)
                 columns = [col for col in response[0].keys()]  # # Receives a list with dictionary objects
                 t.field_names = [col for col in response[0].keys()]  # # Receives a list with dictionary objects
                 for case in response:  # Iterate over the cases

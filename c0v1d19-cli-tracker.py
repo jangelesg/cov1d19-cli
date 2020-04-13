@@ -47,6 +47,7 @@ class Covid19Records:
         self.url_call = url_request
 
         if url_request == 'global-summary':
+            text_format('Red', 'Global Summary')
             self.url = URL  # Global Summary
         if url_request == 'confirmed':
             self.url = URL + 'confirmed'  # global cases per region sorted by confirmed cases
@@ -160,11 +161,10 @@ class Covid19Records:
             elif self.url_call == 'global-summary' or self.url_call == 'country-summary':
                 t.field_names = ['Confirmed', 'Recovered', 'Deaths', 'Death Rate', 'Confirmed Rate','lastUpdate', ]
                 data_values = [v.get('value') for k, v in response.items() if type(v) is dict]  # Extract row items
-                calc_rate = lambda confirmed, value: (value / confirmed) * 100 # Calculate Rate Percentage
-
+                data_values = [v for i, v in enumerate(data_values) if v is not None]  # Select only items with a value None are remove
+                calc_rate = lambda confirmed, value: (value / confirmed) * 100  # Calculate Rate Percentage
                 death_rate = calc_rate(data_values[0], data_values[2])  # Calculate Death Rate percentage
                 data_values.append(death_rate)
-
                 recovered_rate = calc_rate(data_values[0], data_values[1])  # Calculate Recovered Rate percentage
                 data_values.append(recovered_rate)
                 entries_row = []

@@ -140,7 +140,7 @@ class Covid19Records:
                     assert k == 'countries', 'Key is not countries'  # If key is equals Country entries
                     for a in v:  # list of dictionaries
                         entries = []
-                        #print(type(a))
+                        # print(type(a))
                         for k, v in a.items():
                             if k == 'name':
                                 entries.append(v)
@@ -149,27 +149,33 @@ class Covid19Records:
                             if k == 'iso3':
                                 entries.append(v)
                         if len(entries) < 3:  # Check the length of the row vs columns
-                            for x in range(3 - len(entries)): # add padding to the row, avoiding a raise exception
+                            for x in range(3 - len(entries)):  # add padding to the row, avoiding a raise exception
                                 entries.append(None)
                         t.add_row(entries)  # add a row per entry
 
-
-
-                            #t.add_row(entries)  # add a row per entry
+                        # t.add_row(entries)  # add a row per entry
 
                 return t  # Return the table object
-
+            # Check for Global Summary and Country Summary
             elif self.url_call == 'global-summary' or self.url_call == 'country-summary':
-                t.field_names = ['Confirmed', 'Recovered', 'Deaths', 'lastUpdate']
-                e = [v.get('value') for k, v in response.items() if type(v) is dict]  # Extract row items
-                entries = []
-                for i, v in enumerate(e):
-                    if v is not None:
-                        entries.append(v)
-                entries.append(response.get('lastUpdate'))
-                t.add_row(entries)  # add a row per entry
+                t.field_names = ['Confirmed', 'Recovered', 'Deaths', 'Death Rate', 'Confirmed Rate','lastUpdate', ]
+                data_values = [v.get('value') for k, v in response.items() if type(v) is dict]  # Extract row items
+                calc_rate = lambda confirmed, value: (value / confirmed) * 100 # Calculate Rate Percentage
+
+                death_rate = calc_rate(data_values[0], data_values[2])  # Calculate Death Rate percentage
+                data_values.append(death_rate)
+
+                recovered_rate = calc_rate(data_values[0], data_values[1])  # Calculate Recovered Rate percentage
+                data_values.append(recovered_rate)
+                entries_row = []
+                for i, v in enumerate(data_values):
+                    assert v != 0, 'The Value extracted from the response is invalid'
+                    entries_row.append(v)
+                entries_row.append(response.get('lastUpdate'))
+                t.add_row(entries_row)  # add a row per entry
                 return t  # Return the table object
             else:
+                print(response)
                 columns = [col for col in response[0].keys()]  # # Receives a list with dictionary objects
                 t.field_names = [col for col in response[0].keys()]  # # Receives a list with dictionary objects
                 for case in response:  # Iterate over the cases

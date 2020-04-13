@@ -23,14 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 -  Odi mathdroid https://github.com/mathdroid
 ## Resources 
 - https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/COV19_Public_Dashboard_ReadOnly/
-- https://alpublichealth.maps.arcgis.com/
 - https://covid19.mathdro.id/api/
-
----
-## Installation
-
-user@CS38:~/cov1d19-cli$ python setup.py install --user
-
 ---
 ## Usage 
 - python c0v1d19-cli-tracker.py --cd italy 
@@ -38,8 +31,5 @@ user@CS38:~/cov1d19-cli$ python setup.py install --user
 - python c0v1d19-cli-tracker.py --gs
 - python c0v1d19-cli-tracker.py -h
 
-## Screen Shoot 
-![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_help.jpg)
-
-![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_1.gif)
+![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19.gif)
 

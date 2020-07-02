@@ -2,7 +2,7 @@
 ![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)
 
 
-**Version 1.0.0**
+**Version 1.0**
 
 A tool to track down statistics of COVID-19 via command line interface 
  ---

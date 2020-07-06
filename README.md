@@ -35,10 +35,20 @@ user@CS38:~/cov1d19-cli$ python setup.py install --user
 
 ---
 ## Usage 
-- python c0v1d19-cli-tracker.py --cd italy 
-- python c0v1d19-cli-tracker.py --cr usa
-- python c0v1d19-cli-tracker.py --gs
-- python c0v1d19-cli-tracker.py -h
+```console
+python c0v1d19-cli-tracker.py --cd italy 
+```
+```console
+python c0v1d19-cli-tracker.py --cr usa
+```
+
+```console
+python c0v1d19-cli-tracker.py --gs
+```
+
+```console
+python c0v1d19-cli-tracker.py -h
+```
 
 ## Screen Shoot 
 ![](https://github.com/jangelesg/cov1d19-cli/blob/master/tools/covid19_help.jpg)

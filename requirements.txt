@@ -3,7 +3,7 @@ chardet==3.0.4
 colorama==0.4.3
 cov1d19-cli==1.0.0
 idna==2.9
-lxml==4.5.0
+lxml==4.9.0
 meteo-downloader==1.0
 prettytable==0.7.2
 pyfiglet==0.8.post1
